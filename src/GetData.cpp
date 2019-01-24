@@ -7,7 +7,7 @@ using namespace std;
 
 int getNbSommets(string file_name)
 {	
-	int cpt = 0;
+	int cpt = 1;
 	file_name = "../ressources/" + file_name;
 	ifstream fichier (file_name, ios::in);
 
@@ -18,8 +18,13 @@ int getNbSommets(string file_name)
 		getline(fichier, temp);
 		while(temp[i] != '\0')
 		{
-			cpt++;
+			i++;
+			if (temp[i] == ' ')
+			{
+				cpt++;
+			}
 		}
+		fichier.close();
 	}
 	else cerr << "Impossible d'ouvrir le fichier !";
 
