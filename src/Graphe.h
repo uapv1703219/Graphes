@@ -11,4 +11,5 @@ private:
 
 public:
 	Graphe(std::string);
+	void toString();
 };
