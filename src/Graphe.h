@@ -1,4 +1,5 @@
 #pragma once
+#include "Pile.h"
 
 #include <iostream>
 
@@ -12,4 +13,5 @@ private:
 public:
 	Graphe(std::string);
 	void toString();
+	int* chaineAugment(int, int);
 };
