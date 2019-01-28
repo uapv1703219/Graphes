@@ -96,7 +96,7 @@ void Graphe::chaineAugment(int source, int terminal, int* ch)
 	}*/
 }
 
-int Graphe::increment(int* ch, int source, int terminal)
+int Graphe::increment(int source, int terminal, int* ch)
 {
 	int row = ch[terminal];		//Prend la ligne du précedent
 	int min = capacite[row][terminal];	//init min
@@ -104,11 +104,51 @@ int Graphe::increment(int* ch, int source, int terminal)
 
 	while(col != source)
 	{
-		row = ch[col];
-		if(min > capacite[row][col]) {min = capacite[row][col];}
-		col = row;
+		row = ch[col];	//row devient le précédent
+		if(min > capacite[row][col]) {min = capacite[row][col];}	//Si min est le min
+		col = row;		//col deviens le précédent
 	}
 	return min;
+}
+
+int Graphe::flotMax(int source, int terminal)
+{
+	//init
+	int ch[nbsommets];
+	int tot = 0;
+	int inc;
+	int i = 0;
+
+	//fonction
+	while(i != 2)
+	{
+		chaineAugment(source, terminal, ch);	//Ecrit le rés dans ch
+		inc = increment(source, terminal, ch);
+
+		cerr << inc << endl;
+
+		//if (inc == 0) {break;}
+
+		augment(source, terminal, ch, inc);
+		toString();
+		tot += inc;
+		i++;
+	}
+	return tot;
+}
+
+void Graphe::augment(int source, int terminal, int* ch, int inc)
+{
+	int row = ch[terminal];		//Prend la ligne du précedent
+	flot[row][terminal] += inc;
+	int col = row;	//la colone devient le précedent
+
+	while(col != source)
+	{
+		row = ch[col];	//row devient le précédent
+		flot[row][col] += inc;	
+		col = row;		//col deviens le précédent
+	}
 }
 
 int Graphe::getNbSommets()
