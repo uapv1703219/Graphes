@@ -13,5 +13,6 @@ private:
 public:
 	Graphe(std::string);
 	void toString();
-	int* chaineAugment(int, int);
+	void chaineAugment(int, int, int*);
+	int getNbSommets();
 };

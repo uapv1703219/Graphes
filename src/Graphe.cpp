@@ -6,7 +6,7 @@ using namespace std;
 
 Graphe::Graphe(string file_name)
 {
-	nbsommets = getNbSommets(file_name);
+	nbsommets = getNbSommetsFromTxt(file_name);
 
 	capacite = new int*[nbsommets];		//Creer le tableau de capacité des arcs
 	for(int i = 0; i < nbsommets; ++i)
@@ -50,12 +50,11 @@ void Graphe::toString() //Renvoie un string dévoilant le contenu de l'objet Gra
 /*
 Rappels c= tab capacitée, f= tab de flot, s = source, t = terminal.
 */
-int* Graphe::chaineAugment(int source, int terminal)
+void Graphe::chaineAugment(int source, int terminal, int* ch)
 {
 	//Initialisation
 	bool stop = false;
 	bool visite[nbsommets];
-	int ch[nbsommets];
 	Pile pile;
 	int i;
 	for (int i = 0; i < nbsommets; ++i)
@@ -91,9 +90,13 @@ int* Graphe::chaineAugment(int source, int terminal)
 			}
 		}
 	}
-	for (int i = 0; i < nbsommets; ++i)
+	/*for (int i = 0; i < nbsommets; ++i)
 	{
 		cout << ch[i] << endl;
-	}
-	return ch;
+	}*/
+}
+
+int Graphe::getNbSommets()
+{
+	return this->nbsommets;
 }

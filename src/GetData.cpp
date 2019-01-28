@@ -5,7 +5,7 @@
 
 using namespace std;
 
-int getNbSommets(string file_name)
+int getNbSommetsFromTxt(string file_name)
 {	
 	int cpt = 1;
 	file_name = "../ressources/" + file_name;
