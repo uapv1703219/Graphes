@@ -17,7 +17,7 @@ int main(int argc, char const *argv[])
 		cout << "ch[" <<  i << "] = " << ch[i] << endl;
 	}
 
-	
+	cout << "Max augment = " << graphe.increment(ch, 0, 5) << endl;
 
 	return 0;
 }

@@ -14,5 +14,6 @@ public:
 	Graphe(std::string);
 	void toString();
 	void chaineAugment(int, int, int*);
+	int increment(int*, int, int);
 	int getNbSommets();
 };

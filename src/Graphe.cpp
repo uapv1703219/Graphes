@@ -96,6 +96,21 @@ void Graphe::chaineAugment(int source, int terminal, int* ch)
 	}*/
 }
 
+int Graphe::increment(int* ch, int source, int terminal)
+{
+	int row = ch[terminal];		//Prend la ligne du précedent
+	int min = capacite[row][terminal];	//init min
+	int col = row;	//la colone devient le précedent
+
+	while(col != source)
+	{
+		row = ch[col];
+		if(min > capacite[row][col]) {min = capacite[row][col];}
+		col = row;
+	}
+	return min;
+}
+
 int Graphe::getNbSommets()
 {
 	return this->nbsommets;
