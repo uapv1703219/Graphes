@@ -105,7 +105,7 @@ int Graphe::increment(int source, int terminal, int* ch)
 	while(col != source)
 	{
 		row = ch[col];	//row devient le précédent
-		if(min > capacite[row][col]) {min = capacite[row][col];}	//Si min est le min
+		if(min > capacite[row][col] - flot[row][col]) {min = capacite[row][col] - flot[row][col];}	//Si min est le min
 		col = row;		//col deviens le précédent
 	}
 	return min;
@@ -120,14 +120,14 @@ int Graphe::flotMax(int source, int terminal)
 	int i = 0;
 
 	//fonction
-	while(i != 2)
+	while(true)
 	{
 		chaineAugment(source, terminal, ch);	//Ecrit le rés dans ch
 		inc = increment(source, terminal, ch);
 
 		cerr << inc << endl;
 
-		//if (inc == 0) {break;}
+		if (inc == 0) {break;}
 
 		augment(source, terminal, ch, inc);
 		toString();
