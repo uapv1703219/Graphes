@@ -80,7 +80,7 @@ void Graphe::chaineAugment(int source, int terminal, int* ch)
 			{
 				if(!visite[j])
 				{
-					if ((capacite[i][j] > 0 && capacite[i][j] > flot[i][j]) || (capacite[j][i] > 0 && flot[i][j] > 0))
+					if ((capacite[i][j] > 0 && capacite[i][j] > flot[i][j]) || (capacite[j][i] > 0 && flot[j][i] > 0))
 					{
 						pile.Empiler(j);
 						ch[j] = i;
@@ -123,14 +123,19 @@ int Graphe::flotMax(int source, int terminal)
 	while(true)
 	{
 		chaineAugment(source, terminal, ch);	//Ecrit le rés dans ch
+		for (int i = 0; i < nbsommets; ++i)
+		{
+			cout << ch[i] << endl;
+			
+		}
 		inc = increment(source, terminal, ch);
 
-		cerr << inc << endl;
+		//cerr << inc << endl;
+		toString();
 
 		if (inc == 0) {break;}
 
 		augment(source, terminal, ch, inc);
-		toString();
 		tot += inc;
 		i++;
 	}
