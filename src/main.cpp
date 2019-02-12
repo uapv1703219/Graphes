@@ -19,7 +19,8 @@ int main(int argc, char const *argv[])
 
 	// cout << "Max augment = " << graphe.increment(0, 5, ch) << endl;
 
-	cout << "flot max = " << graphe.flotMax(0, 5) << endl;
+	cout << "flot max = " << graphe.flotMax(0, 3) << endl;
+	graphe.toString();
 	//graphe.toString();
 
 	return 0;
