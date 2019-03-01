@@ -18,4 +18,6 @@ public:
 	int flotMax(int, int);
 	void augment(int, int, int*, int);
 	int getNbSommets();
+	void MooreDijkstra(int, int*);
+	void displayShortestPaths(int*);
 };
