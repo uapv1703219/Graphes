@@ -231,6 +231,47 @@ void Graphe::displayShortestPaths(int* pere)
 
 }
 
+void Graphe::Bellman(int source, int* pere)
+{
+	int k = 0;
+	int d[nbsommets][nbsommets];
+	int pere[nbsommets];
+	bool stop = false;
+
+	pere[0] = 0;
+	d[0][0] = 0;
+	for(int i = 1; i < nbsommets; i++) { d[0][i] = 99999; pere[i] = 0; }
+
+	while(k < nbsommets && !stop)
+	{
+		for (int i = 1; i < nbsommets; ++i)
+		{
+			d[k+1][i] = d[k][i];
+			for (int j = 0; j < nbsommets; ++j)
+			{
+				if (/*j ∈ Γi−1*/)
+				{
+					if (d[k][j] + capacite[j][i] < d[k+1][i])
+					{
+						d[k+1][i] = d[k][j] + capacite[j][i];
+						pere[i] = j;
+					}
+				}
+			}
+		}
+		k++;
+		for (int i = 0; i < nbsommets; ++i)
+		{
+			if (d[k][i] == d[k-1][i])
+			{
+				stop = true;
+				break;
+			}
+		}
+	}
+
+}
+
 int Graphe::getNbSommets()
 {
 	return this->nbsommets;
