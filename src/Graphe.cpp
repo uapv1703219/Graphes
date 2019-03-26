@@ -2,6 +2,8 @@
 #include "GetData.h"
 #include "Pile.h"
 
+#include <algorithm>
+
 using namespace std;
 
 Graphe::Graphe(string file_name)
@@ -154,6 +156,120 @@ void Graphe::augment(int source, int terminal, int* ch, int inc)
 		flot[row][col] += inc;	
 		col = row;		//col deviens le précédent
 	}
+}
+
+void Graphe::MooreDijkstra(int source, int* pere)
+{
+	std::vector<int> C;
+	C.push_back(source);
+
+	int min = 99999;
+	int cur = 0;
+
+	int d[nbsommets];
+	d[0] = 0;
+	pere[0] = 0;
+	for(int i = 1; i < nbsommets; i++) { d[i] = 99999; pere[i] = 0; }
+	int j = 0;
+	
+	for (int I = 0; I < nbsommets; ++I)
+	{
+		for (int i = 0; i < nbsommets; ++i)
+		{
+			/*for (vector<int>::const_iterator p = C.begin(); p != C.end(); ++p) cout << *p << ' ';
+				cout << "i = " << i << " and capacite[j][i] = " << capacite[j][i] <<endl;
+				cout <<endl;*/
+			
+			if (capacite[j][i] != 0 && !(find(C.begin(), C.end(), i) != C.end()))
+			{
+				//cout << "j = " << j <<"and d[j] = " << d[j] << " and d[j] + capacite[j][i] = " << d[j] + capacite[j][i] << " and d[i] = " << d[i] << endl;
+				if(d[j] + capacite[j][i] < d[i])
+				{
+					d[i] = d[j] + capacite[j][i];
+					pere[i] = j;
+				}
+			}
+		}
+		int min = 99999;
+		int cur = 0;
+
+		for (int i = 0; i < nbsommets; i++)
+        {
+        	//cerr << i <<" " <<d[i] << endl;
+            if (!(find(C.begin(), C.end(), i) != C.end()) && d[i] < min)
+            {
+                min = d[i];
+                cur = i;
+            }
+        }
+
+		j = cur;
+		C.push_back(j);
+	}
+}
+
+void Graphe::displayShortestPaths(int* pere)
+{
+	Pile pile;
+	pile.Empiler(nbsommets-1);
+	int tmp = pere[nbsommets-1];
+	pile.Empiler(tmp);
+	while(tmp != 0)
+	{
+		tmp = pere[tmp];
+		pile.Empiler(tmp);
+	}
+
+	cout << "Le plus court chemin est : [";
+	while(true)
+	{
+		cout << pile.Depiler();
+		if(!pile.isEmpty()) { cout << " , ";}
+		else break;
+	}
+	cout << "]" << endl;
+
+}
+
+void Graphe::Bellman(int source, int* pere)
+{
+	int k = 0;
+	int d[nbsommets][nbsommets];
+	int pere[nbsommets];
+	bool stop = false;
+
+	pere[0] = 0;
+	d[0][0] = 0;
+	for(int i = 1; i < nbsommets; i++) { d[0][i] = 99999; pere[i] = 0; }
+
+	while(k < nbsommets && !stop)
+	{
+		for (int i = 1; i < nbsommets; ++i)
+		{
+			d[k+1][i] = d[k][i];
+			for (int j = 0; j < nbsommets; ++j)
+			{
+				if (/*j ∈ Γi−1*/)
+				{
+					if (d[k][j] + capacite[j][i] < d[k+1][i])
+					{
+						d[k+1][i] = d[k][j] + capacite[j][i];
+						pere[i] = j;
+					}
+				}
+			}
+		}
+		k++;
+		for (int i = 0; i < nbsommets; ++i)
+		{
+			if (d[k][i] == d[k-1][i])
+			{
+				stop = true;
+				break;
+			}
+		}
+	}
+
 }
 
 int Graphe::getNbSommets()
