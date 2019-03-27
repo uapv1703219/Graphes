@@ -5,6 +5,83 @@
 
 using namespace std;
 
+int getProfondeurTaches(string file_name)
+{
+	int cpt = 0;
+	file_name = "../ressources/" + file_name;
+	ifstream fichier (file_name, ios::in);
+	string temp;
+
+	while(getline(fichier, temp))
+	{
+		cpt++;
+	}
+
+	fichier.close();
+
+	return cpt;
+}
+
+int getLargeurTaches(string file_name)
+{
+	int max = 0;
+	int maxtmp;
+
+	file_name = "../ressources/" + file_name;
+	ifstream fichier (file_name, ios::in);
+	string temp;
+
+	while(getline(fichier, temp))
+	{
+		maxtmp = 1;		//Les premiers membres et seconds sont inclus
+		for(int i = 0; i <= temp.length(); i++)
+		{
+			if(temp[i] == ' ') { maxtmp++; }
+		}
+		if(maxtmp > max) { max = maxtmp; }
+	}
+
+	fichier.close();
+	return max;
+}
+
+void initTabTaches(int** taches, int largeur, int profondeur, string file_name)
+{
+	string tmp;
+	int cpt;
+
+	file_name = "../ressources/" + file_name;
+	ifstream fichier (file_name, ios::in);
+	string ligne;
+
+	for (int i = 0; i < profondeur; i++)
+	{
+		tmp = "";
+		cpt = 0;
+		getline(fichier, ligne);
+
+		for (int j = 0; j < ligne.length(); j++)
+		{
+			if(ligne[j] != ' ')
+			{
+				tmp += ligne[j];
+			}
+			else
+			{
+				taches[i][cpt] = atoi(tmp.c_str());
+				cpt++;
+				tmp = "";
+			}
+		}
+		taches[i][cpt] = atoi(tmp.c_str());
+
+		for (int j = cpt+1; j < largeur; ++j)
+		{
+			taches[i][j] = 0;
+		}
+	}
+}
+
 int getNbSommetsFromTxt(string file_name)
 {	
 	int cpt = 1;
