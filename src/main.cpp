@@ -9,6 +9,7 @@ using namespace std;
 int main(int argc, char const *argv[])
 {	
 	GrapheTaches graphetaches = GrapheTaches("Taches.txt");
+	graphetaches.getPlusTot();
 	cout << graphetaches.toString() << endl;
 
 

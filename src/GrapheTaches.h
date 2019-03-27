@@ -8,9 +8,13 @@ class GrapheTaches
 	int profondeur;
 
 	int** taches;
+	int* tot;
+	int* tard;
 public:
 	GrapheTaches(std::string);
 	//~GrapheTaches();
 	std::string toString();
+	void getPlusTot();
+	void getPlusTard();
 	
 };

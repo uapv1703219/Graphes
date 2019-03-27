@@ -15,6 +15,51 @@ GrapheTaches::GrapheTaches(string file_name)
 	}
 
 	initTabTaches(taches,largeur, profondeur, file_name);
+
+	tot = new int[profondeur];
+	tard = new int[profondeur];
+
+	for (int i = 0; i < profondeur; ++i)
+	{
+		tot[i] = 0;
+		tard[i] = 0;
+	}
+}
+
+void GrapheTaches::getPlusTot()
+{
+	int pred;
+	for (int current_prof = 0; current_prof < profondeur; ++current_prof)
+	{
+		for (int current_larg = 2; current_larg < largeur; ++current_larg)
+		{
+			pred = taches[current_prof][current_larg];
+			if (pred != 0)
+			{
+				//cout << pred << " " << taches[pred - 1][1] << endl;
+				if (tot[pred - 1] + taches[pred][1] > tot[current_prof])
+				{
+					tot[current_prof] = tot[pred - 1] + taches[pred - 1][1];
+				}
+			}
+		}
+	}
+}
+
+void GrapheTaches::getPlusTard()
+{
+	int pred;
+	for (int current_prof = 0; current_prof < profondeur; ++current_prof)
+	{
+		for (int current_larg = 2; current_larg < largeur; ++current_larg)
+		{
+			pred = taches[current_prof][current_larg];
+			if (pred != 0)
+			{
+				
+			}
+		}
+	}
 }
 
 string GrapheTaches::toString()
@@ -30,4 +75,16 @@ string GrapheTaches::toString()
 	 	}
 	 	cout << endl;
 	}
+	cout << "Tot = " << endl;
+	for (int i = 0; i < profondeur; ++i)
+	{
+		cout << tot[i] << " ";
+	}
+	cout << endl;
+	cout << "Tard = " << endl;
+	for (int i = 0; i < profondeur; ++i)
+	{
+		cout << tard[i] << " ";
+	}
+	cout << endl;
 }
