@@ -16,5 +16,5 @@ public:
 	std::string toString();
 	void getPlusTot();
 	void getPlusTard();
-	
+	void criticalPath();
 };

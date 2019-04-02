@@ -22,7 +22,7 @@ GrapheTaches::GrapheTaches(string file_name)
 	for (int i = 0; i < profondeur; ++i)
 	{
 		tot[i] = 0;
-		tard[i] = 0;
+		tard[i] = -1;
 	}
 }
 
@@ -49,17 +49,24 @@ void GrapheTaches::getPlusTot()
 void GrapheTaches::getPlusTard()
 {
 	int pred;
-	for (int current_prof = 0; current_prof < profondeur; ++current_prof)
+	tard[profondeur-1] = tot[profondeur-1];
+	for (int current_prof = profondeur - 1; current_prof >= 0; current_prof--)
 	{
 		for (int current_larg = 2; current_larg < largeur; ++current_larg)
 		{
 			pred = taches[current_prof][current_larg];
-			if (pred != 0)
+			if(pred != 0)
 			{
-				
-			}
+				//cout << current_prof << " " << tard[pred - 1] << " " << tard[current_prof] - taches[pred - 1][1] << " " << tard[current_prof] << endl;
+				if (tard[pred-1] == -1 || tard[pred - 1] > tard[current_prof] - taches[pred - 1][1]) { tard[pred - 1] = tard[current_prof] - taches[pred - 1][1]; }
+			} 
 		}
 	}
+}
+
+void GrapheTaches::criticalPath()
+{
+
 }
 
 string GrapheTaches::toString()

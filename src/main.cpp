@@ -10,6 +10,7 @@ int main(int argc, char const *argv[])
 {	
 	GrapheTaches graphetaches = GrapheTaches("Taches.txt");
 	graphetaches.getPlusTot();
+	graphetaches.getPlusTard();
 	cout << graphetaches.toString() << endl;
 
 
